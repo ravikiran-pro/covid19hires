@@ -3,23 +3,16 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import FontAwesome from 'react-fontawesome'
-import './../styles/Modal.css'
-class App extends React.Component{
+import './../styles/ModalForm.css'
+class Register extends React.Component{
 	constructor(props, context) {
 		super(props, context);
 
-		this.handlelogin = this.handlelogin.bind(this);
 		this.handleregister = this.handleregister.bind(this);
-		this.handleUser = this.handleUser.bind(this);
 		this.handleRegstration = this.handleRegstration.bind(this)
 		this.state = {
-			login: false,
 			register:false,
 			captchaCode:'kmlask',
-			log:{
-				"email":'',
-				"password":''
-			},
 			reg:{
 				"user":'',
 				"email":'',
@@ -31,12 +24,6 @@ class App extends React.Component{
 	}
 	componentDidMount(){
 		this.Generatecaptcha();	
-	}
-	handlelogin() {
-		if(this.state.login===true)
-			this.setState({login:false});
-		else
-			this.setState({login:true});
 	}
 	handleregister() {
 		if(this.state.register===true)
@@ -52,43 +39,15 @@ class App extends React.Component{
             var str = new Array(4).join().replace(/(.|$)/g, function () { return ((Math.random() * 36) | 0).toString(36)[Math.random() < .5 ? "toString" : "toUpperCase"](); });  
     		this.setState({captchaCode:str + chr1 + ' ' + chr2 + ' ' + chr3})
         }  
-    
-  handleUser(evt,field) {
-  	this.setState({ log: { ...this.state.log, [field]: evt.target.value} });
-  }
-  handleRegstration(evt,field){
+    handleRegstration(evt,field){
   	this.setState({ reg: { ...this.state.reg, [field]: evt.target.value} });	
   }
 	render() {
 		return (
-			<div className="container">
-			<h1 className="head">ddd</h1>
-			<div className="useraccount">
-				<Button style={{backgroundColor:'orange',float:"left"}} variant="success" onClick={this.handlelogin}>
-					Login
-        		</Button>
-        		<Button style={{backgroundColor:'orange',float:"left"}} variant="success" onClick={this.handleregister}>
+			<>
+      		<Button style={{backgroundColor:'orange',float:"left"}} variant="success" onClick={this.handleregister}>
 					Register
-        		</Button>
-        	</div>
-			<Modal className="Modal" show={this.state.login}  centered={true} size="sm" onHide={this.handlelogin}>
-			<Modal.Body className="ModalBody">
-			<Form.Group className="Form">
-				<Form.Label>Email</Form.Label>
-			    <Form.Control type="text" size="sm" placeholder="email" 
-			    value={this.state.log.email} 
-			    onChange={(evt)=>this.handleUser(evt,"email")}
-			    />
-			    <Form.Label>Password</Form.Label>
-  				<Form.Control type="password" size="sm" placeholder="password"
-  				value={this.state.log.password} 
-			    onChange={(evt)=>this.handleUser(evt,"password")}
-  				/><br/>
-			    <Button className="centerbutton" size="md">Login</Button>
-			</Form.Group>
-			</Modal.Body>
-			</Modal>
-
+        	</Button>
 			<Modal className="Modal" show={this.state.register}  centered={true} size="sm" onHide={this.handleregister}>
 			<Modal.Body className="ModalBody">
 			<Form.Group className="Form">
@@ -129,10 +88,10 @@ class App extends React.Component{
 			</Form.Group>
 			</Modal.Body>
 			</Modal>
-			</div>
+			</>
 		);
 	}
 }
-export default App;
+export default Register;
 
 
