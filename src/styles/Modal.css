@@ -1,0 +1,27 @@
+.captchaStripes {
+  background-image: repeating-linear-gradient(red, yellow 10%, green 20%);
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+  background-color: red;
+  font-style:italic;
+  padding:10px;
+}
+.useraccount{
+	float: right;
+}
+.centerbutton{
+	width: 100%;
+	margin-top: 0px;
+	color: green;
+}
+.centerbutton:hover{
+	margin-left: 10%;
+	margin-right: 10%;
+	width: 80%;
+}
+.Modal
+{
+	background-color: orange;
+}
+.ModalBody{
+	border-radius: 40px;
+}
