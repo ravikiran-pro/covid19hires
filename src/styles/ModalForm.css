@@ -5,8 +5,31 @@
   font-style:italic;
   padding:10px;
 }
+.input-group{
+	position: relative;
+}
+#eye{
+	border-radius: 30px;
+}
+.textjoin{
+	display: relative;
+}
+.fontjoin{
+	display: absolute;
+}
+.header
+{
+	background-color: red;
+}
+ul{
+	display: none;
+}
 .useraccount{
 	float: right;
+}
+.btn{
+	background-color: red;
+	width: 100px;
 }
 .centerbutton{
 	width: 100%;

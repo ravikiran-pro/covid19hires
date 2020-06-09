@@ -1,0 +1,21 @@
+.dropdown-menu {
+  max-height: 300px;  
+  width: 10px;
+  overflow-y: scroll;
+}
+#btn{
+	background-color: red;
+	width: 100%;
+}
+.input-group-addon{
+	position: absolute;
+	margin-left: 5px;
+}
+.input-group{
+	position: relative;
+}
+#searcher{
+	padding-left: 25px;
+	width: 500px;
+	background-color: red;
+}

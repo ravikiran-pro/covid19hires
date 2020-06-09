@@ -1,8 +1,8 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form'
-import FontAwesome from 'react-fontawesome'
+import Form from 'react-bootstrap/Form';
+import FontAwesome from 'react-fontawesome';
 import './../styles/ModalForm.css'
 class Register extends React.Component{
 	constructor(props, context) {
@@ -10,16 +10,18 @@ class Register extends React.Component{
 
 		this.handleregister = this.handleregister.bind(this);
 		this.handleRegstration = this.handleRegstration.bind(this)
+		this.submit = this.submit.bind(this);
 		this.state = {
 			register:false,
-			captchaCode:'kmlask',
+			captchaCode:'',
 			reg:{
 				"user":'',
 				"email":'',
 				"password":'',
 				"repassword":'',
 				"captcha":''
-			}
+			},
+			progress:100,
 		};
 	}
 	componentDidMount(){
@@ -37,15 +39,39 @@ class Register extends React.Component{
             var chr3 = Math.ceil(Math.random() * 10) + '';  
   
             var str = new Array(4).join().replace(/(.|$)/g, function () { return ((Math.random() * 36) | 0).toString(36)[Math.random() < .5 ? "toString" : "toUpperCase"](); });  
-    		this.setState({captchaCode:str + chr1 + ' ' + chr2 + ' ' + chr3})
+    		this.setState({captchaCode:str+chr1+ chr2+chr3})
         }  
     handleRegstration(evt,field){
   	this.setState({ reg: { ...this.state.reg, [field]: evt.target.value} });	
   }
+  submit()
+  {
+  	var x=this.state.reg;
+  	if(this.state.captchaCode===x.captcha 	&& 
+  		x.password!=='' && x.repassword!==''	&&
+  			   x.password===x.repassword 	&&
+  			   		x.name!=='' && x.email!==''
+		)
+    fetch("http://localhost:5000/register", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email:x.email,
+          password:x.password,
+        })
+    })
+        .then((response) => response.json())
+        .then((responseData) => {
+            
+        })
+  }
 	render() {
 		return (
 			<>
-      		<Button style={{backgroundColor:'orange',float:"left"}} variant="success" onClick={this.handleregister}>
+      		<Button className="btn" variant="success" onClick={this.handleregister}>
 					Register
         	</Button>
 			<Modal className="Modal" show={this.state.register}  centered={true} size="sm" onHide={this.handleregister}>
@@ -57,10 +83,10 @@ class Register extends React.Component{
   				onChange={(evt)=>this.handleRegstration(evt,"user")}
   				/>
   				<Form.Label>Email</Form.Label>
-			    <Form.Control type="text" size="sm" placeholder="email"
-			    value={this.state.reg.email} 
-  				onChange={(evt)=>this.handleRegstration(evt,"email")}
-			    />
+    			<Form.Control type="email" size="sm" placeholder="email"
+			    	value={this.state.reg.email} 
+  					onChange={(evt)=>this.handleRegstration(evt,"email")}
+			    	/>	
 			    <Form.Label>Password</Form.Label>
   				<Form.Control type="password" size="sm" placeholder="password"
   				value={this.state.reg.password} 
@@ -84,7 +110,7 @@ class Register extends React.Component{
   				value={this.state.reg.captcha} 
   				onChange={(evt)=>this.handleRegstration(evt,"captcha")}
   				/><br/>
-  				<Button className="centerbutton" size="md">Register</Button>
+  				<Button className="centerbutton" size="md" onClick={this.submit}>Register</Button>
 			</Form.Group>
 			</Modal.Body>
 			</Modal>

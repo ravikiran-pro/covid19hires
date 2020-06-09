@@ -1,0 +1,11 @@
+.head{
+	background-color: orange;
+	height: 100px;
+}
+.container{
+	margin: 50px;
+}
+#table{
+	width: 80%;
+	margin: 0 auto;
+}

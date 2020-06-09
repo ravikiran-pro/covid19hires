@@ -24,28 +24,52 @@ class Login extends React.Component{
 		else
 			this.setState({login:true});
 	}
+	showpassword(){
+		var x=document.getElementById("input");
+		var y=document.getElementById("eye");
+		if(x.type==="password") 
+			{x.type="text";
+			 y.style.backgroundColor="grey";
+			}
+		else {x.type="password"; y.style.backgroundColor="";}
+	}
   handleUser(evt,field) {
   	this.setState({ log: { ...this.state.log, [field]: evt.target.value} });
   }
 	render() {
 		return (
 			<>
-			<Button style={{backgroundColor:'orange',float:"left"}} variant="success" onClick={this.handlelogin}>
+			<Button className="btn" variant="success" onClick={this.handlelogin}>
 				Login
         	</Button>
 			<Modal className="Modal" show={this.state.login}  centered={true} size="sm" onHide={this.handlelogin}>
 			<Modal.Body className="ModalBody">
 			<Form.Group className="Form">
-				<Form.Label>Email</Form.Label>
-			    <Form.Control type="text" size="sm" placeholder="email" 
-			    value={this.state.log.email} 
-			    onChange={(evt)=>this.handleUser(evt,"email")}
-			    />
-			    <Form.Label>Password</Form.Label>
-  				<Form.Control type="password" size="sm" placeholder="password"
-  				value={this.state.log.password} 
-			    onChange={(evt)=>this.handleUser(evt,"password")}
-  				/><br/>
+    			<div className="textjoin">
+      				<FontAwesome
+        			name='fa fa-envelope'
+        			size='2x'
+      			/>
+      			<div className="fontjoin">
+    				<Form.Control type="text" size="sm" placeholder="email" 
+			    	value={this.state.log.email} 
+			    	className="fa fa-envelope"
+			    	onChange={(evt)=>this.handleUser(evt,"email")}
+			    	/>
+			    </div>
+  				</div><br/>
+			  		<Form.Control type="password" id="input" size="sm" placeholder="password"
+  					value={this.state.log.password} 
+			    	onChange={(evt)=>this.handleUser(evt,"password")}
+  				/>
+  				<FontAwesome
+        			name='fa fa-eye-slash'
+        			id="eye"
+        			size='lg'
+        			onClick={this.showpassword}
+      			/>
+      			<i> show password</i>
+      			<br/><br/>
 			    <Button className="centerbutton" size="md">Login</Button>
 			</Form.Group>
 			</Modal.Body>
