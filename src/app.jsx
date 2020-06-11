@@ -1,7 +1,11 @@
 import React from 'react';
 import NavBar from './components/navbar';
+<<<<<<< HEAD
 import SearchBar from './components/searchbar';
 import JobsViewAll from './components/jobsviewall';
+=======
+import View from './components/view';
+>>>>>>> resuable
 import JobsViewSearch from './components/jobsviewsearch';
 
 class App extends React.Component{
@@ -69,6 +73,16 @@ class App extends React.Component{
 				    <SearchBar handleSearchResult={this.handleSearchResult}/>
 				</div>
                     <JobsViewAll values={this.state.values} increasestate={this.increasestate} decreasestate={this.decreasestate}/>
+=======
+        this.state={
+        }
+    }
+	render() {
+		return (
+			<div>
+	       		    <NavBar/>
+                    <View/>
+>>>>>>> resuable
 			</div>
 		);
 	}
