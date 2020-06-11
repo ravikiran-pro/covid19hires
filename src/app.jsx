@@ -4,18 +4,18 @@ import View from './components/view';
 import JobsViewSearch from './components/jobsviewsearch';
 
 class App extends React.Component{
-	constructor(props) {
+        constructor(props) {
         super(props);
         this.state={
         }
     }
-	render() {
-		return (
-			<div>
-	       		    <NavBar/>
+        render() {
+                return (
+                        <div>
+                            <NavBar/>
                     <View/>
-			</div>
-		);
-	}
+                        </div>
+                );
+        }
 }
 export default App;
