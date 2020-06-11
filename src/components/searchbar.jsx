@@ -7,25 +7,11 @@ import './../styles/SearchBar.css';
 class SearchBar extends React.Component{
 	constructor(props) {
         super(props);
-        this.state={
-        	role:'',
-        	location:'',
-        	type:'',
-        	sector:'',
-        	filter:false,
-        }
         this.handlecomponent=this.handlecomponent.bind(this);
-        this.handlepopup=this.handlepopup.bind(this);
         this.sendresults=this.sendresults.bind(this);
     }
      handlecomponent(choice,_state){
       this.props.handleSearchResult(_state,choice);
-        }
-      handlepopup(){
-      	if(this.state.filter===false)
-      		this.setState({filter:true});
-      	else
-      		this.setState({filter:false});
       }
       sendresults()
       {
@@ -34,10 +20,10 @@ class SearchBar extends React.Component{
       popsearchmenu()
       {
       	var x=document.getElementById("group");
-      	if(x.style.display === 'none')
+      	if(x.style.display === '')
       		x.style.display = 'inline-block';
       	else
-      		x.style.display = 'none';
+      		x.style.display = '';
       }
 	render() {
 		return (
