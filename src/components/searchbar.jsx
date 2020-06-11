@@ -19,10 +19,7 @@ class SearchBar extends React.Component{
         this.sendresults=this.sendresults.bind(this);
     }
      handlecomponent(choice,_state){
-     	if(_state==="role") this.setState({role:choice});
-     	else if (_state==="location") this.setState({location:choice});
-     	else if (_state==="type") this.setState({type:choice});
-     	else this.setState({sector:choice});
+      this.props.handleSearchResult(_state,choice);
         }
       handlepopup(){
       	if(this.state.filter===false)
