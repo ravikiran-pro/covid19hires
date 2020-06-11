@@ -1,71 +1,74 @@
 import React from 'react';
 import NavBar from './components/navbar';
 import SearchBar from './components/searchbar';
-import JobsView from './components/jobsview';
-import View from './components/view';
+import JobsViewAll from './components/jobsviewall';
+import JobsViewSearch from './components/jobsviewsearch';
+
 class App extends React.Component{
 	constructor(props) {
         super(props);
         this.handleSearchResult=this.handleSearchResult.bind(this);   
         this.fetchAllJobs=this.fetchAllJobs.bind(this); 
+        this.increasestate=this.increasestate.bind(this);
+        this.decreasestate=this.decreasestate.bind(this);
         this.state={
-            values:[]
+            start:0,
+            end:4,
+            all:true,
+            values:[],
+            searchresult:{
+                role:'',
+                location:'',
+                type:'',
+                sector:''},
         }
     }
-    handleSearchResult(_state)
+    handleSearchResult(_state,choice)
     {
-    	this.setState({data:_state});
-        this.fetchAllJobs(3,4);
+        this.setState({start:0});
+        this.setState({end:0});
+    	this.setState({searchresult:{...this.state.searchresult,[_state]:choice}});
+        this.fetchAllJobs("forward");
     }
-    fetchAllJobs(s,e)
-    {   
-        fetch("http://localhost:5000/api/all", {
+    decreasestate()
+    {
+        this.fetchAllJobs("backward");   
+    }
+    increasestate()
+    {
+        this.fetchAllJobs("forward");
+    }
+    fetchAllJobs(endpoint)
+    { 
+        fetch("http://localhost:5000/api/searchresults/"+endpoint, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          start:s,
-          end:e,
+          start:this.state.start,
+          role:this.state.searchresult.role,
+          location:this.state.searchresult.location,
+          sector:this.state.searchresult.sector,
+          type:this.state.searchresult.type
         }),
     })
         .then((response) => response.json())
         .then((responseData) => {
              this.setState({values:responseData});
-        })   
-    }
-    fetchAllJobs(s,e)
-    {   
-        fetch("http://localhost:5000/api/all", {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          start:s,
-          end:e,
-        }),
-    })
-        .then((response) => response.json())
-        .then((responseData) => {
-             this.setState({values:responseData});
+             this.setState({start:responseData[3]['sno']});
+             this.setState({end:responseData[0]['sno']});
         })   
     }
 	render() {
 		return (
 			<div>
-				    <NavBar/>
+	       		      <NavBar/>
 				<div>
-					<SearchBar handleSearchResult={this.handleSearchResult}/>
-				</div><br/>
-				<div>
-					<JobsView values={this.state.values} range={10}/>
+				    <SearchBar handleSearchResult={this.handleSearchResult}/>
 				</div>
-                <div><br/>
-                    <View fetchjobs={this.fetchAllJobs}/>
-                </div>
+                    <JobsViewAll values={this.state.values} increasestate={this.increasestate} decreasestate={this.decreasestate}/>
 			</div>
 		);
 	}
